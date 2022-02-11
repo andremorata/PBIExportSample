@@ -1,7 +1,5 @@
 ﻿using ExportReportToFile.Models;
 using Microsoft.PowerBI.Api.Models;
-using System;
-using System.Collections.Generic;
 
 namespace ExportReportToFile
 {
