@@ -1,26 +1,25 @@
-﻿using System;
-using System.Linq;
-using System.Configuration;
-using System.IO;
-using System.Security;
-using System.Reflection;
-using Microsoft.Rest;
-using Microsoft.Identity.Client;
+﻿using Microsoft.Identity.Client;
 using Microsoft.PowerBI.Api;
+using Microsoft.Rest;
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
-namespace ExportReportToFile.Models {
+namespace ExportReportToFile.Models
+{
 
-  class TokenManager {
+    class TokenManager {
 
     public const string urlPowerBiServiceApiRoot = "https://api.powerbi.com/";
     private const string tenantCommonAuthority = "https://login.microsoftonline.com/organizations";
 
-    private static string applicationId = ConfigurationManager.AppSettings["public-application-id"];
-    private static string redirectUri = ConfigurationManager.AppSettings["redirect-uri"];
+    private static string applicationId = Environment.GetEnvironmentVariable("public-application-id");
+    private static string redirectUri = Environment.GetEnvironmentVariable("redirect-uri");
 
-    private static string confidentialApplicationId = ConfigurationManager.AppSettings["confidential-application-id"];
-    private static string confidentialApplicationSecret = ConfigurationManager.AppSettings["confidential-application-secret"];
-    private static string tenantName = ConfigurationManager.AppSettings["tenant-name"];
+    private static string confidentialApplicationId = Environment.GetEnvironmentVariable("confidential-application-id");
+    private static string confidentialApplicationSecret = Environment.GetEnvironmentVariable("confidential-application-secret");
+    private static string tenantName = Environment.GetEnvironmentVariable("tenant-name");
     private readonly static string tenantSpecificAuthority = "https://login.microsoftonline.com/" + tenantName;
 
     public static string GetAccessTokenInteractive(string[] scopes) {

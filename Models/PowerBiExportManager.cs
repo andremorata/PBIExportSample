@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.PowerBI.Api;
 using Microsoft.PowerBI.Api.Models;
 using System.IO;
-using System.Configuration;
 
 namespace ExportReportToFile.Models
 {
@@ -13,7 +12,7 @@ namespace ExportReportToFile.Models
 
         private static PowerBIClient pbiClient = TokenManager.GetPowerBiAppOnlyClient();
 
-        private static string ExportFolderPath = ConfigurationManager.AppSettings["export-folder-path"];
+        private static string ExportFolderPath = Environment.GetEnvironmentVariable("export-folder-path");
 
         public static void GetWorkspaces()
         {
@@ -123,7 +122,12 @@ namespace ExportReportToFile.Models
             }
         }
 
-        public static void ExportPowerBIReport(Guid WorkspaceId, Guid ReportId, string ExportName, FileFormat ExportFileFormat, string ExportFilter = "")
+        public static void ExportPowerBIReport(
+            Guid WorkspaceId, 
+            Guid ReportId, 
+            string ExportName, 
+            FileFormat ExportFileFormat, 
+            string ExportFilter = "")
         {
 
             Console.WriteLine("Exporting " + ExportName + " (Power BI report) to " + ExportFileFormat.ToString());
